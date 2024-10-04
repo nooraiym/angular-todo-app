@@ -1,10 +1,13 @@
 <app-header />
 <main>
   <div class="container">
-    <app-sidemenu />
+    <app-sidemenu [options]="allOptions" (update)="onUpdateOption($event)" />
     <section class="content">
-      <h2>Main Content</h2>
-      <p>This is the main content area.</p>
+      @if (selectedOption) {
+      <app-tasks />
+      } @else {
+      <p id="fallback">Select an option to see tasks!</p>
+      }
     </section>
   </div>
 </main>
