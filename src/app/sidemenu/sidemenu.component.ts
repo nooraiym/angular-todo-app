@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, output } from '@angular/core';
 
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
@@ -16,9 +16,10 @@ import { ListItemComponent } from './list-item/list-item.component';
 })
 export class SidemenuComponent {
   @Input({ required: true }) options!: Option[];
-  @Output() update = new EventEmitter();
+  // @Output() update = new EventEmitter();
+  update = output<string>()
 
   onUpdateOption(optionId: string) {
-    this.update.emit(optionId);
+    this.update.emit(optionId)
   }
 }

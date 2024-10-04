@@ -4,7 +4,7 @@
     <app-sidemenu [options]="allOptions" (update)="onUpdateOption($event)" />
     <section class="content">
       @if (selectedOption) {
-      <app-tasks />
+      <app-tasks [tasks]="selectedTasksData" />
       } @else {
       <p id="fallback">Select an option to see tasks!</p>
       }

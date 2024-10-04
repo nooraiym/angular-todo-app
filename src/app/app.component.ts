@@ -16,6 +16,7 @@ export class AppComponent {
   options: Option[] = OPTIONS;
   tasks: Task[] = TASKS;
   selectedOptionId: string | null = null;
+  selectedTasks: Task[] = [];
 
   get allOptions() {
     return this.options;
@@ -23,14 +24,15 @@ export class AppComponent {
   get selectedOption() {
     return this.options.find((option) => option.id === this.selectedOptionId);
   }
-  get selectedTasks() {
-    // return this.tasks.filter((task) => task.optionId === this.selectedOptionId);
-    return;
+  get selectedTasksData() {
+    return this.selectedTasks;
   }
 
   onUpdateOption(optionId: string) {
-    console.log(optionId);
-
     this.selectedOptionId = optionId;
+    this.selectedTasks = this.tasks.filter(
+      (task) => task.optionId === optionId
+    );
+    console.log(this.selectedTasks);
   }
 }
