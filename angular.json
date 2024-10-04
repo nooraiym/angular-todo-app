@@ -31,7 +31,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles.scss", "src/styles/_variables.scss"],
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,

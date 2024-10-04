@@ -1,6 +1,8 @@
 @use "@angular/material" as mat;
 @include mat.core();
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+@import 'styles/variables';
+
 
 $angular-todo-app-theme: mat.define-theme(
   (
@@ -19,31 +21,19 @@ $angular-todo-app-theme: mat.define-theme(
   @include mat.all-component-themes($angular-todo-app-theme);
 }
 
-$background-color: #eaedef;
-$main-text-color: #1b1b1b;
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-html {
-  height: 100%;
-}
-
-body {
-  font-family: "Manrope", sans-serif;
-  background: $background-color;
-  color: $main-text-color;
-  height: 100%;
-}
-
 html,
 body {
   height: 100%;
 }
 body {
+  font-family: "Manrope", sans-serif;
+  background: $background-color;
+  color: $main-text-color;
+  height: 100%;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
