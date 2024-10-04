@@ -1,11 +1,11 @@
 #toolbar {
-  .icon {
-    font-size: xx-large;
+  .spacer {
+    flex: 1 1 auto;
   }
   div {
     display: flex;
     flex-direction: column;
-    padding-left: 1rem;
+    padding: 1rem;
 
     h1 {
       padding: 0;
@@ -17,8 +17,4 @@
       text-transform: uppercase;
     }
   }
-}
-
-.spacer {
-  flex: 1 1 auto;
 }
