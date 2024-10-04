@@ -1,0 +1,16 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    @if (task.optionId === '4') {
+    <mat-checkbox>
+      <h2 class="done">{{ task.title }}</h2>
+    </mat-checkbox>
+    } @else {
+    <mat-checkbox>
+      <h2>{{ task.title }}</h2>
+    </mat-checkbox>
+    }
+
+    <time>{{ task.dueDate | date : "medium" }}</time>
+    <p>{{ task.summary }}</p>
+  </mat-card-content>
+</mat-card>

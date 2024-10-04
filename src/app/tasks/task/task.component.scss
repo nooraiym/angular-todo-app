@@ -1,0 +1,18 @@
+@import "../../../styles/variables";
+
+mat-card {
+  margin-bottom: 0.7rem;
+  background-color: #ffffff;
+  mat-card-content {
+    time {
+      display: block;
+      padding: 0.4rem 0;
+      text-transform: lowercase;
+      font-style: italic;
+      color: $tertiary;
+    }
+  }
+  .done {
+    text-decoration: line-through;
+  }
+}
