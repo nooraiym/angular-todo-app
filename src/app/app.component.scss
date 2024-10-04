@@ -1,0 +1,20 @@
+@import '../styles/variables';
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+#fallback {
+  color: $warn-color;
+}
+
+@media (max-width: 768px) {
+  .container {
+  }
+}
