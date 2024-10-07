@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OPTIONS, Option } from '../data/options';
-import { TASKS, Task } from '../data/tasksData';
+import { NewTaskData, TASKS, Task } from '../data/tasksData';
 import { HeaderComponent } from './header/header.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -15,7 +15,7 @@ import { TasksComponent } from './tasks/tasks.component';
 export class AppComponent {
   options: Option[] = OPTIONS;
   tasks: Task[] = TASKS;
-  selectedOptionId: string | null = null;
+  selectedOptionId!: string;
   selectedTasks: Task[] = [];
 
   get allOptions() {
@@ -33,6 +33,13 @@ export class AppComponent {
     this.selectedTasks = this.tasks.filter(
       (task) => task.optionId === optionId
     );
-    console.log(this.selectedTasks);
+  }
+  onAddTask(taskData: NewTaskData) {
+    const newTask: Task = {
+      id: `t${this.tasks.length + 1}`,
+      optionId: this.selectedOptionId,
+      ...taskData,
+    };
+    this.tasks.push(newTask);
   }
 }

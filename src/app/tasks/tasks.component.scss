@@ -1,3 +1,14 @@
+@import "../../styles/variables";
+
 app-task {
   max-width: 20rem;
+}
+
+div {
+  width: 100%;
+  padding-bottom: 1rem;
+  text-align: right;
+  button {
+    color: $main-text-color;
+  }
 }

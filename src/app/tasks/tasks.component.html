@@ -1,3 +1,17 @@
-@for (task of tasks; track task.id) {
-  <app-task [task]="task" />
+<div>
+  <button mat-stroked-button (click)="onStartNewTaskAdd()">
+    + Add new task...
+  </button>
+</div>
+
+@if (tasks.length > 0) {
+  @for (task of tasks; track task.id) {
+    <app-task [task]="task" />
+  }
+} @else {
+  <p>Tasks list is empty.</p>
+}
+
+@if (isAddingNewTask) {
+  <app-new-task (add)="addTask($event)" />
 }
