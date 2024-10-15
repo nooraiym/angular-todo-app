@@ -1,12 +1,20 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 import { Task } from '../../tasks.model';
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [DatePipe, MatCardModule, MatCheckboxModule],
+  imports: [
+    DatePipe,
+    MatCardModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
