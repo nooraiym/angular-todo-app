@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { Option } from './options.model';
 import { OptionService } from './services/option.service';
@@ -22,7 +23,14 @@ export class AppComponent implements OnInit {
   selectedOptionId: string | undefined;
   allOptions!: Option[];
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   ngOnInit() {
+    if (isPlatformBrowser(this.platformId) && sessionStorage.getItem('todoAppLoaded')) {
+      localStorage.clear();
+      sessionStorage.setItem('todoAppLoaded', 'true');
+      console.log('LocalStorage has been cleared on first load');
+    }
     this.selectedOptionId = this.optionService.selectedOptionID();
     this.allOptions = this.optionService.allOptions();
   }
