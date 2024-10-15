@@ -5,14 +5,17 @@ import { OPTIONS, Option } from '../options.model';
   providedIn: 'root',
 })
 export class OptionService {
-  options: Option[] = OPTIONS;
-  selectedOptionId: string | undefined;
+  private options: Option[] = OPTIONS;
+  private selectedOptionId: string | undefined;
 
   allOptions() {
     return this.options;
   }
-  selectedOption() {
-    return this.options.find((option) => option.id === this.selectedOptionId);
+  selectedOptionID() {
+    const option = this.options.find(
+      (option) => option.id === this.selectedOptionId
+    );
+    return option?.id;
   }
   updateSelectedOption(optionId: string) {
     this.selectedOptionId = optionId;

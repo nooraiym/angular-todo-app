@@ -1,9 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { NewTaskData, TASKS, Task } from '../data/tasksData';
 import { HeaderComponent } from './header/header.component';
 import { Option } from './options.model';
 import { OptionService } from './services/option.service';
+import { TasksService } from './services/tasks.service';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
+import { Task } from './tasks.model';
 import { TasksComponent } from './tasks/tasks.component';
 
 @Component({
@@ -15,18 +16,15 @@ import { TasksComponent } from './tasks/tasks.component';
 })
 export class AppComponent implements OnInit {
   private optionService = inject(OptionService);
-  tasks: Task[] = TASKS;
+  private tasksService = inject(TasksService);
   selectedTasks: Task[] = [];
 
   selectedOptionId: string | undefined;
   allOptions!: Option[];
-  selectedOption: Option | undefined;
 
   ngOnInit() {
-    this.selectedOptionId = this.optionService.selectedOptionId;
+    this.selectedOptionId = this.optionService.selectedOptionID();
     this.allOptions = this.optionService.allOptions();
-    this.selectedOption = this.optionService.selectedOption();
-    // console.log('Initial selectedOptionId: ', this.selectedOptionId);
   }
 
   get selectedTasksData() {
@@ -35,22 +33,9 @@ export class AppComponent implements OnInit {
 
   onUpdateOption(optionId: string) {
     this.optionService.updateSelectedOption(optionId);
-    this.selectedOptionId = this.optionService.selectedOptionId;
-    this.selectedOption = this.optionService.selectedOption();
-    // console.log('Updated selectedOptionId: ', this.selectedOptionId);
+    this.selectedOptionId = this.optionService.selectedOptionID();
+    console.log('Updated selectedOptionId: ', this.selectedOptionId);
 
-    this.selectedTasks = this.tasks.filter(
-      (task) => task.optionId === optionId
-    );
-  }
-  onAddTask(taskData: NewTaskData) {
-    if (this.selectedOptionId) {
-      const newTask: Task = {
-        id: `t${this.tasks.length + 1}`,
-        optionId: this.selectedOptionId,
-        ...taskData,
-      };
-      this.tasks.push(newTask);
-    }
+    this.selectedTasks = this.tasksService.filterTasks();
   }
 }
