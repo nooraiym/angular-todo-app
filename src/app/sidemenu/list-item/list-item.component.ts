@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, output } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
-import { Option } from '../../../data/options';
+import { Option } from '../../options.model';
 
 @Component({
   selector: 'app-list-item',

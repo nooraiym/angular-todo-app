@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { OPTIONS, Option } from '../data/options';
+import { Component, OnInit, inject } from '@angular/core';
 import { NewTaskData, TASKS, Task } from '../data/tasksData';
 import { HeaderComponent } from './header/header.component';
+import { Option } from './options.model';
+import { OptionService } from './services/option.service';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { TasksComponent } from './tasks/tasks.component';
 
@@ -12,34 +13,44 @@ import { TasksComponent } from './tasks/tasks.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  options: Option[] = OPTIONS;
+export class AppComponent implements OnInit {
+  private optionService = inject(OptionService);
   tasks: Task[] = TASKS;
-  selectedOptionId!: string;
   selectedTasks: Task[] = [];
 
-  get allOptions() {
-    return this.options;
+  selectedOptionId: string | undefined;
+  allOptions!: Option[];
+  selectedOption: Option | undefined;
+
+  ngOnInit() {
+    this.selectedOptionId = this.optionService.selectedOptionId;
+    this.allOptions = this.optionService.allOptions();
+    this.selectedOption = this.optionService.selectedOption();
+    // console.log('Initial selectedOptionId: ', this.selectedOptionId);
   }
-  get selectedOption() {
-    return this.options.find((option) => option.id === this.selectedOptionId);
-  }
+
   get selectedTasksData() {
     return this.selectedTasks;
   }
 
   onUpdateOption(optionId: string) {
-    this.selectedOptionId = optionId;
+    this.optionService.updateSelectedOption(optionId);
+    this.selectedOptionId = this.optionService.selectedOptionId;
+    this.selectedOption = this.optionService.selectedOption();
+    // console.log('Updated selectedOptionId: ', this.selectedOptionId);
+
     this.selectedTasks = this.tasks.filter(
       (task) => task.optionId === optionId
     );
   }
   onAddTask(taskData: NewTaskData) {
-    const newTask: Task = {
-      id: `t${this.tasks.length + 1}`,
-      optionId: this.selectedOptionId,
-      ...taskData,
-    };
-    this.tasks.push(newTask);
+    if (this.selectedOptionId) {
+      const newTask: Task = {
+        id: `t${this.tasks.length + 1}`,
+        optionId: this.selectedOptionId,
+        ...taskData,
+      };
+      this.tasks.push(newTask);
+    }
   }
 }
