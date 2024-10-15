@@ -1,8 +1,7 @@
 <mat-dialog-content>
   <h2 mat-dialog-title>Add new task</h2>
   <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
-    <p>
-      <label for="title">Title</label>
+    <app-control label="Title">
       <input
         type="text"
         id="title"
@@ -11,13 +10,10 @@
         required
         #title="ngModel"
       />
-      @if (title.invalid && title.touched) {
-      <small class="error-text">Title is required.</small>
-      }
-    </p>
+      <app-error-message [control]="title" myRole="Title"/>
+    </app-control>
 
-    <p>
-      <label for="summary">Summary</label>
+    <app-control label="Summary">
       <textarea
         id="summary"
         rows="5"
@@ -26,27 +22,23 @@
         required
         #summary="ngModel"
       ></textarea>
-      @if (summary.invalid && summary.touched) {
-      <small class="error-text">Summary is required.</small>
-      }
-    </p>
+      <app-error-message [control]="summary" myRole="Summary"/>
+    </app-control>
 
-    <p>
-      <label for="due-date">Due Date</label>
+    <app-control label="Due Date">
       <input
         type="date"
-        id="due-date"
-        name="due-date"
+        id="due date"
+        name="due date"
         [(ngModel)]="enteredDate"
         required
         #dueDate="ngModel"
       />
-      @if (dueDate.invalid && dueDate.touched) {
-      <small class="error-text">Date is required.</small>
-      }
-    </p>
+      <app-error-message [control]="dueDate" myRole="Date"/>
+    </app-control>
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <button mat-stroked-button (click)="onCancel()">Cancel</button>
   <button

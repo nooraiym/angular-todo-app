@@ -7,11 +7,13 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { type NewTaskData } from '../../../data/tasksData';
+import { ControlComponent } from "../../shared/control/control.component";
+import { ErrorMessageComponent } from "../../shared/error-message/error-message.component";
 
 @Component({
   selector: 'app-new-task',
   standalone: true,
-  imports: [MatDialogActions, MatDialogContent, MatButtonModule, FormsModule],
+  imports: [MatDialogActions, MatDialogContent, MatButtonModule, FormsModule, ControlComponent, ErrorMessageComponent],
   templateUrl: './new-task.component.html',
   styleUrl: './new-task.component.scss',
 })
