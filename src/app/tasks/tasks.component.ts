@@ -32,6 +32,6 @@ export class TasksComponent {
   }
   addTask(newTaskData: NewTaskData) {
     this.tasksService.addTask(newTaskData);
-    this.tasks = this.tasksService.filterTasks();
+    this.tasksService.filterTasks().subscribe((tasks) => (this.tasks = tasks));
   }
 }

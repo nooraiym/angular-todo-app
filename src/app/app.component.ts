@@ -26,7 +26,10 @@ export class AppComponent implements OnInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId) && sessionStorage.getItem('todoAppLoaded')) {
+    if (
+      isPlatformBrowser(this.platformId) &&
+      sessionStorage.getItem('todoAppLoaded')
+    ) {
       localStorage.clear();
       sessionStorage.setItem('todoAppLoaded', 'true');
       console.log('LocalStorage has been cleared on first load');
@@ -44,6 +47,8 @@ export class AppComponent implements OnInit {
     this.selectedOptionId = this.optionService.selectedOptionID();
     console.log('Updated selectedOptionId: ', this.selectedOptionId);
 
-    this.selectedTasks = this.tasksService.filterTasks();
+    this.tasksService
+      .filterTasks()
+      .subscribe((tasks) => (this.selectedTasks = tasks));
   }
 }

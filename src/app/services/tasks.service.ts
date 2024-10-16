@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { BehaviorSubject, map } from 'rxjs';
 import { NewTaskData, TASKS, Task } from '../tasks.model';
 import { OptionService } from './option.service';
 
@@ -9,7 +10,8 @@ import { OptionService } from './option.service';
 export class TasksService {
   private optionService = inject(OptionService);
   private localStorageKey = 'tasks';
-  private tasks: Task[] = [];
+  private tasksSubject = new BehaviorSubject<Task[]>([]);
+  tasks$ = this.tasksSubject.asObservable();
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
@@ -20,37 +22,36 @@ export class TasksService {
   private loadTasksFromLocalStorage() {
     const storedTasks = localStorage.getItem(this.localStorageKey);
     if (storedTasks) {
-      this.tasks = JSON.parse(storedTasks);
-      console.log(this.tasks);
+      const parsedTasks = JSON.parse(storedTasks);
+      this.tasksSubject.next(parsedTasks);
     } else {
-      this.tasks = TASKS;
+      this.tasksSubject.next(TASKS);
     }
   }
 
-  private saveTasksToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.tasks));
-  }
-
-  getTasks(): Task[] {
-    return this.tasks;
+  private saveTasksToLocalStorage(tasks: Task[]) {
+    localStorage.setItem(this.localStorageKey, JSON.stringify(tasks));
   }
 
   filterTasks() {
-    return this.tasks.filter(
-      (task) => task.optionId === this.optionService.selectedOptionID()
+    const optionID = this.optionService.selectedOptionID();
+    return this.tasks$.pipe(
+      map((tasks) => tasks.filter((task) => task.optionId === optionID))
     );
   }
 
   addTask(taskData: NewTaskData) {
     const optionID = this.optionService.selectedOptionID();
     if (optionID) {
+      const currentTasks = this.tasksSubject.getValue();
       const newTask: Task = {
-        id: `t${this.tasks.length + 1}`,
+        id: `t${currentTasks.length + 1}`,
         optionId: optionID,
         ...taskData,
       };
-      this.tasks.push(newTask);
-      this.saveTasksToLocalStorage();
+      const updatedTasks = [...currentTasks, newTask];
+      this.tasksSubject.next(updatedTasks);
+      this.saveTasksToLocalStorage(updatedTasks);
     }
   }
 }
