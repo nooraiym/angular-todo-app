@@ -1,0 +1,13 @@
+@if (editing) {
+<mat-form-field>
+  <textarea
+    matInput
+    [(ngModel)]="value"
+    (blur)="saveEdit()"
+    (keydown.enter)="saveEdit()"
+  >
+  </textarea>
+</mat-form-field>
+} @else {
+<span (dblclick)="editing = true">{{ value }}</span>
+}

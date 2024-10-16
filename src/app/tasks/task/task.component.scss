@@ -12,6 +12,10 @@ mat-card {
       color: $tertiary;
     }
   }
+  .heading {
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
   .done {
     color: $secondary-text-color;
     display: inline-block;

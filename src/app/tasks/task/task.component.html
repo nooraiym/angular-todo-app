@@ -3,12 +3,24 @@
   @switch (task.optionId) {
     @case ('3') {
       <mat-checkbox>
-        <h2 class="done">{{ task.title }}</h2>
+          <app-editable-field
+            class="heading"
+            [value]="task.title"
+            [editing]="editingTitle"
+            (valueChange)="onFieldChange('title', $event, task)"
+            (editingChange)="editingTitle = $event">
+          </app-editable-field>
       </mat-checkbox>
     }
     @case ('4') {
       <div class="trash">
-        <h2 class="done">{{ task.title }}</h2>
+        <app-editable-field
+            class="heading"
+            [value]="task.title"
+            [editing]="editingTitle"
+            (valueChange)="onFieldChange('title', $event, task)"
+            (editingChange)="editingTitle = $event">
+          </app-editable-field>
         <button
           mat-mini-fab
           aria-label="Delete icon"
@@ -20,11 +32,32 @@
     }
     @default {
       <mat-checkbox>
-        <h2>{{ task.title }}</h2>
+        <app-editable-field
+            class="heading"
+            [value]="task.title"
+            [editing]="editingTitle"
+            (valueChange)="onFieldChange('title', $event, task)"
+            (editingChange)="editingTitle = $event">
+          </app-editable-field>
       </mat-checkbox>
     }
   }
-  <time>{{ task.dueDate | date : "mediumDate" }}</time>
-  <p>{{ task.summary }}</p>
+  <!-- <time>{{ task.dueDate | date : "mediumDate" }}</time> -->
+  <time>
+    <app-editable-field
+      [value]="task.dueDate"
+      [editing]="editingDueDate"
+      (valueChange)="onFieldChange('dueDate', $event, task)"
+      (editingChange)="editingDueDate = $event">
+    </app-editable-field>
+  </time>
+  <p>
+    <app-editable-field
+      [value]="task.summary"
+      [editing]="editingSummary"
+      (valueChange)="onFieldChange('summary', $event, task)"
+      (editingChange)="editingSummary = $event">
+    </app-editable-field>
+  </p>
 </mat-card-content>
 </mat-card>

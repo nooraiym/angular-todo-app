@@ -62,4 +62,19 @@ export class TasksService {
     this.tasksSubject.next(updatedTasks);
     this.saveTasksToLocalStorage(updatedTasks);
   }
+
+  updateTask(updatedTask: Task) {
+    const currentTasks = this.tasksSubject.getValue();
+    const taskIndex = currentTasks.findIndex(
+      (task) => task.id === updatedTask.id
+    );
+
+    if (taskIndex !== -1) {
+      const updatedTasks = [...currentTasks];
+      updatedTasks[taskIndex] = updatedTask;
+      this.tasksSubject.next(updatedTasks);
+      this.saveTasksToLocalStorage(updatedTasks);
+      console.log('Task updated:', updatedTask);
+    }
+  }
 }
