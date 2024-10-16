@@ -9,7 +9,11 @@
     @case ('4') {
       <div class="trash">
         <h2 class="done">{{ task.title }}</h2>
-        <button mat-mini-fab aria-label="Delete icon">
+        <button
+          mat-mini-fab
+          aria-label="Delete icon"
+          (click)="onDelete(task.id)"
+          >
           <mat-icon>delete</mat-icon>
         </button>
       </div>

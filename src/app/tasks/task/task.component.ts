@@ -20,5 +20,10 @@ import { Task } from '../../tasks.model';
   styleUrl: './task.component.scss',
 })
 export class TaskComponent {
+  private tasksService = inject(TasksService);
   @Input({ required: true }) task!: Task;
+
+  onDelete(taskId: string) {
+    this.tasksService.deleteTask(taskId);
+  }
 }

@@ -54,4 +54,12 @@ export class TasksService {
       this.saveTasksToLocalStorage(updatedTasks);
     }
   }
+
+  deleteTask(taskId: string) {
+    console.log('DEL');
+    const currentTasks = this.tasksSubject.getValue();
+    const updatedTasks = currentTasks.filter((task) => task.id !== taskId);
+    this.tasksSubject.next(updatedTasks);
+    this.saveTasksToLocalStorage(updatedTasks);
+  }
 }
